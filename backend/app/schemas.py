@@ -244,3 +244,32 @@ class AssessEntry(BaseModel):
     field_5: str | None = None  # 评估人员
     field_6: str | None = None  # 评估结论
     field_7: str | None = None  # 评估状态
+
+class TrainEntry(BaseModel):
+    """培训演练明细结构。"""
+
+    field_0: str | None = None  # 培训编号
+    field_1: str | None = None  # 培训岗位
+    field_2: str | None = None  # 设备类型
+    field_3: str | None = None  # 计划开班日期
+    field_4: str | None = None  # 培训讲师
+    field_5: str | None = None  # 演练项目
+    field_6: str | None = None  # 学员人数
+    field_7: str | None = None  # 培训状态
+
+
+class ScoreItemResult(BaseModel):
+    """批量录入成绩时单个学员的处理结果。"""
+
+    trainee: str
+    ok: bool
+    message: str
+
+
+class ScoreBatchResult(BaseModel):
+    """同一场演练多人同时提交成绩时的逐条处理回执。"""
+
+    ok: bool
+    message: str
+    entry: dict[str, Any] | None = None
+    results: list[ScoreItemResult] = Field(default_factory=list)
